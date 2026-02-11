@@ -8,8 +8,14 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+app.get("/", (req,res)=>{
+   res.send("API Task Manager Online 🚀")
+})
+
 app.use("/tarefas", tarefasRoutes)
 
-app.listen(3000, () => {
-    console.log("Servidor rodando na porta 3000")
+const PORT = process.env.PORT || 3000
+
+app.listen(PORT, () => {
+  console.log("Servidor rodando...")
 })

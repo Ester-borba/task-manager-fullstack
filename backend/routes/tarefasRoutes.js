@@ -9,4 +9,3 @@ router.put("/:id", tarefasController.updateTarefa)
 router.delete("/:id", tarefasController.deleteTarefa)
 
 module.exports = router
-router.put("/:id", tarefasController.updateTarefa)
