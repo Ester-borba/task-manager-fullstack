@@ -1,18 +1,13 @@
 const mysql = require("mysql2")
 
-const connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "Esterswag122",
-    database: "task_manager"
+const { Pool } = require("pg")
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 })
 
-connection.connect((err) => {
-    if (err) {
-        console.log("Erro ao conectar banco:", err)
-    } else {
-        console.log("Banco conectado")
-    }
-})
+module.exports = pool
 
-module.exports = connection

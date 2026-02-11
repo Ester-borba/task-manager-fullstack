@@ -1,25 +1,25 @@
 const db = require("../db")
 
-exports.getAll = (callback) => {
-    db.query("SELECT * FROM tarefas", callback)
+exports.getAll = async () => {
+  const res = await db.query("SELECT * FROM tarefas")
+  return res.rows
 }
 
-exports.create = (dados, callback) => {
-    db.query(
-        "INSERT INTO tarefas (titulo, descricao, status) VALUES (?, ?, ?)",
-        [dados.titulo, dados.descricao, dados.status],
-        callback
-    )
+exports.create = async (dados) => {
+  await db.query(
+    "INSERT INTO tarefas (titulo, descricao, status) VALUES ($1, $2, $3)",
+    [dados.titulo, dados.descricao, dados.status]
+  )
 }
 
-exports.update = (id, dados, callback) => {
-    db.query(
-        "UPDATE tarefas SET titulo=?, descricao=?, status=? WHERE id=?",
-        [dados.titulo, dados.descricao, dados.status, id],
-        callback
-    )
+exports.update = async (id, dados) => {
+  await db.query(
+    "UPDATE tarefas SET titulo=$1, descricao=$2, status=$3 WHERE id=$4",
+    [dados.titulo, dados.descricao, dados.status, id]
+  )
 }
 
-exports.delete = (id, callback) => {
-    db.query("DELETE FROM tarefas WHERE id=?", [id], callback)
+exports.delete = async (id) => {
+  await db.query("DELETE FROM tarefas WHERE id=$1", [id])
 }
+
